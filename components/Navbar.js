@@ -54,11 +54,6 @@ export default function Navbar() {
             <button className="hover:text-[#be95c4] cursor-pointer">👩‍💻 About</button>
           </Link>
         </li>
-        <li>
-          <Link href="/contact">
-            <button className="hover:text-[#be95c4] cursor-pointer">📬 Contact</button>
-          </Link>
-        </li>
 
         <li>
           <button

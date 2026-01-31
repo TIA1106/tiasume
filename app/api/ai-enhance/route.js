@@ -2,27 +2,27 @@
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
-  if (!process.env.OPENROUTER_API_KEY) {
-  console.warn("⚠️ Missing API key. AI features may not work.");
-  return NextResponse.json({ error: "API key missing. AI temporarily unavailable." }, { status: 500 });
-}
+  if (!process.env.GROQ_API_KEY) {
+    console.warn("⚠️ Missing Groq API key. AI features may not work.");
+    return NextResponse.json({ error: "API key missing. AI temporarily unavailable." }, { status: 500 });
+  }
 
   try {
     const { message } = await req.json();
 
-    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "mistralai/mistral-7b-instruct",
+        model: "llama-3.3-70b-versatile",
         messages: [
           {
             role: "system",
             content:
-              "You are a resume writing assistant.Don't exaggerate the applicant's inputs just Rewrite the user's sentence using action verbs, resume-friendly tone. Keep it professional and concise.",
+              "You are a resume writing assistant. Rewrite the user's sentence using action verbs and a resume-friendly tone. Keep it professional and concise. Do not include any conversational filler, just the improved text.",
           },
           {
             role: "user",
@@ -35,7 +35,7 @@ export async function POST(req) {
     const data = await response.json();
 
     if (data.error) {
-      console.error("OpenRouter Error:", data.error);
+      console.error("Groq API Error:", data.error);
       return NextResponse.json({ success: false, error: data.error.message || "AI failed" });
     }
 

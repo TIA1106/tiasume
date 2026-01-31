@@ -6,7 +6,7 @@ const Template2 = ({ resume }) => {
   return (
     <div
       id="resume-preview"
-      className="w-[800px] mx-auto bg-white text-black px-10 py-8 font-serif space-y-6 tracking-wide"
+      className="resume template-2 w-[800px] mx-auto bg-white text-black px-10 py-8 font-serif space-y-6 tracking-wide"
     >
       {/* Name + Role */}
       <div>
